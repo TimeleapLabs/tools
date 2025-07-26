@@ -37,7 +37,8 @@ program
   .command("init")
   .description("Interactive node setup wizard")
   .action(async () => {
-    await import("./libs/init-wizard");
+    const wizard = await import("./libs/init-wizard");
+    wizard.default();
   });
 
 program
