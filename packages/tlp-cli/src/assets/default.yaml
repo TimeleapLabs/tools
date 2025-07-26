@@ -1,0 +1,17 @@
+system:
+  name: Timeleap
+  log: info
+
+network:
+  bind: 0.0.0.0:9123
+  broker:
+    uri: ws://broker:9123
+    publicKey: ""
+    timeout: 30s
+
+rpc:
+  cpus: 1
+  gpus: 0
+  ram: 1024
+
+plugins: []
