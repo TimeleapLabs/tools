@@ -47,10 +47,17 @@ export default async () => {
   const secretsPath = path.join(absPath, "secrets");
 
   const generateSecrets = async () => {
+    const isLinux = process.platform === "linux";
+
+    const uid = isLinux
+      ? process.env.UID || (await $`id -u`.text()).trim()
+      : "";
+    const gid = isLinux
+      ? process.env.GID || (await $`id -g`.text()).trim()
+      : "";
+
     for (const role of project.role) {
-      await $`docker run -v ${secretsPath}:/secrets --rm --user 0 ghcr.io/timeleaplabs/timeleap generate-secrets -s /secrets/${role}_secrets.yaml`
-        .quiet()
-        .nothrow();
+      await $`docker run -v ${secretsPath}:/secrets --rm ${isLinux ? `--user ${uid}:${gid}` : ""} ghcr.io/timeleaplabs/timeleap generate-secrets -s /secrets/${role}_secrets.yaml`;
     }
   };
 
