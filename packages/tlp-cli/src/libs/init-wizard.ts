@@ -11,9 +11,10 @@ import {
   text,
 } from "@clack/prompts";
 import { generateCompose, generateConfig } from "./parser";
+import colors from 'picocolors'
 
 export default async () => {
-  intro("Timeleap Wizard");
+  intro(colors.bgCyan(colors.black(' Timeleap Wizard '))
 
   const project = await group(
     {

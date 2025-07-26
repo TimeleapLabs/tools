@@ -34,6 +34,9 @@
       "bin": {
         "tlp": "./dist/tlp",
       },
+      "dependencies": {
+        "picocolors": "^1.1.1",
+      },
       "devDependencies": {
         "@types/bun": "latest",
       },
