@@ -8,10 +8,9 @@ type Compose = {
   secrets?: Record<string, any>;
   networks?: Record<string, any>;
 };
-console.log(compose);
+
 export const generateCompose = async (roles: string[], project: string) => {
-  const file = Bun.file(compose);
-  const doc = yaml.load(await file.text()) as Compose;
+  const doc = yaml.load(compose) as Compose;
 
   const selectedServices = Object.entries(doc.services || {})
     .filter(([name]) => roles.includes(name))
@@ -64,8 +63,7 @@ export const generateConfig = async (
   path: string,
   broker?: { uri: string; key: string },
 ) => {
-  const file = Bun.file(config);
-  const doc = yaml.load(await file.text());
+  const doc = yaml.load(config);
 
   if (broker) {
     doc.network.broker.publicKey = broker.key;
