@@ -46,7 +46,7 @@ const secretsPath = path.join(absPath, "secrets");
 
 const generateSecrets = async () => {
   for (const role of project.role) {
-    await $`docker run -v ${secretsPath}:/secrets --rm ghcr.io/timeleaplabs/timeleap generate-secrets -s /secrets/${role}_secrets.yaml`
+    await $`docker run -v ${secretsPath}:/secrets --rm --user 0 ghcr.io/timeleaplabs/timeleap generate-secrets -s /secrets/${role}_secrets.yaml`
       .quiet()
       .nothrow();
   }
