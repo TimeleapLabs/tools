@@ -5,8 +5,6 @@ import process from "process";
 
 const program = new Command();
 
-Bun.embeddedFiles.forEach((item) => console.log(item.name));
-
 const fail = (msg: string, err: any) => {
   const out =
     err?.message ||
@@ -26,11 +24,10 @@ const run = async (args: string[]) => {
     },
   });
 
-  const stderrOutput = proc.stderr ? await proc.stderr.text() : null;
   const exitCode = await proc.exited;
 
   if (exitCode !== 0 && exitCode !== 130) {
-    throw new Error(stderrOutput || `Process exited with code ${exitCode}`);
+    throw new Error(proc.stderr || `Process exited with code ${exitCode}`);
   }
 };
 
