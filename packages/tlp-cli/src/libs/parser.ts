@@ -1,6 +1,6 @@
 import yaml from "js-yaml";
-import compose from "../assets/compose.yaml" with { type: "file" };
-import config from "../assets/default.yaml" with { type: "file" };
+import compose from "../assets/compose.yaml" with { type: "text" };
+import config from "../assets/default.yaml" with { type: "text" };
 
 type Compose = {
   services: Record<string, any>;
@@ -8,6 +8,7 @@ type Compose = {
   secrets?: Record<string, any>;
   networks?: Record<string, any>;
 };
+console.log(compose);
 export const generateCompose = async (roles: string[], project: string) => {
   const file = Bun.file(compose);
   const doc = yaml.load(await file.text()) as Compose;
