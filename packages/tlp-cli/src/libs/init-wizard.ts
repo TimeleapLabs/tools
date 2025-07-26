@@ -1,4 +1,4 @@
-import { $, sleep } from "bun";
+import { $, spawnSync, sleep } from "bun";
 import path from "path";
 import {
   cancel,
@@ -57,7 +57,24 @@ export default async () => {
       : "";
 
     for (const role of project.role) {
-      await $`docker run -v ${secretsPath}:/secrets --rm ${isLinux ? `--user ${uid}:${gid}` : ""} ghcr.io/timeleaplabs/timeleap generate-secrets -s /secrets/${role}_secrets.yaml`;
+      const { exitCode } = spawnSync({
+        cmd: [
+          "docker",
+          "run",
+          "-v",
+          `${secretsPath}:/secrets`,
+          "--rm",
+          ...(isLinux ? ["--user", `${uid}:${gid}`] : []),
+          "ghcr.io/timeleaplabs/timeleap",
+          "generate-secrets",
+          "-s",
+          `/secrets/${role}_secrets.yaml`,
+        ],
+      });
+      if (exitCode !== 0) {
+        cancel("Generating secrets failed");
+        process.exit(0);
+      }
     }
   };
 
