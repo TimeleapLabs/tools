@@ -8,6 +8,7 @@
     "build": "bun build --compile --outfile ./dist/tlp src/index.ts src/assets/**"
   },
   "exports": {
+    ".": "./dist/tlp",
     "./wizard": "./src/libs/init-wizard.ts"
   },
   "bin": {
