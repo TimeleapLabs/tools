@@ -1,7 +1,6 @@
 import yaml from "js-yaml";
 import compose from "../assets/compose.yaml" with { type: "file" };
 import config from "../assets/default.yaml" with { type: "file" };
-import { file } from "bun";
 
 type Compose = {
   services: Record<string, any>;
