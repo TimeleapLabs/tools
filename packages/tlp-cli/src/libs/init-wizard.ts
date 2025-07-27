@@ -1,4 +1,5 @@
 import { $, spawnSync, sleep } from "bun";
+import { readdirSync, statSync } from "fs";
 import path from "path";
 import {
   cancel,
@@ -11,6 +12,17 @@ import {
 } from "@clack/prompts";
 import { generateCompose, generateConfig } from "./parser";
 import colors from "picocolors";
+
+export const isNonEmptyDirectory = (path: string): boolean => {
+  try {
+    const stats = statSync(path);
+    if (!stats.isDirectory()) return false;
+
+    return readdirSync(path).length > 0;
+  } catch {
+    return false;
+  }
+};
 
 export default async () => {
   console.log();
@@ -25,6 +37,9 @@ export default async () => {
           validate: (value) => {
             if (!value) return "Please enter a path.";
             if (value[0] !== ".") return "Please enter a relative path.";
+            if (isNonEmptyDirectory(value))
+              return "Target directory exists and is not empty";
+
             return undefined;
           },
         }),
@@ -44,6 +59,7 @@ export default async () => {
   );
 
   const absPath = path.resolve(process.cwd(), project.path);
+
   const secretsPath = path.join(absPath, "secrets");
 
   const generateSecrets = async () => {
