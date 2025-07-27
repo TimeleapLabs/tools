@@ -2,7 +2,6 @@ import { $, spawnSync, sleep } from "bun";
 import path from "path";
 import {
   cancel,
-  confirm,
   group,
   intro,
   multiselect,
@@ -12,9 +11,9 @@ import {
 } from "@clack/prompts";
 import { generateCompose, generateConfig } from "./parser";
 import colors from "picocolors";
-import { mkdir } from "node:fs/promises";
 
 export default async () => {
+  console.log();
   intro(colors.bgCyan(colors.black(" Timeleap Wizard ")));
 
   const project = await group(
@@ -74,7 +73,8 @@ export default async () => {
       });
       if (exitCode !== 0) {
         cancel("Generating secrets failed");
-        throw new Error(String(stderr));
+        console.log(String(stderr));
+        process.exit(1);
       }
     }
   };
@@ -118,7 +118,13 @@ export default async () => {
     await generateConfig(absPath);
   }
 
-  note(`cd ${project.path} \ntlp compose up`, "Next steps");
+  note(
+    [
+      `${colors.dim("cd")} ${colors.blueBright(project.path)}`,
+      `${colors.dim("tlp")} ${colors.blueBright("compose up")}`,
+    ].join("\n"),
+    colors.cyan("Next steps"),
+  );
 
   outro("You are ready to use Timeleap!");
 };
