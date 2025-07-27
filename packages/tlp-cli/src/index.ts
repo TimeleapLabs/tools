@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { spawn } from "bun";
 import path from "path";
 import process from "process";
+import { adminCommand } from "@timeleap/admin/cli";
 
 const program = new Command();
 
@@ -91,9 +92,11 @@ program
 
 program
   .command("plugin")
-  .description("Register plugin with broker")
+  .description("Register plugin with worker")
   .action(() => {
     console.log("🔧 Plugin registration not implemented yet.");
   });
+
+program.addCommand(adminCommand());
 
 await program.parseAsync();
