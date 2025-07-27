@@ -57,8 +57,11 @@ export default async () => {
       ? process.env.GID || (await $`id -g`.text()).trim()
       : "";
 
+    await $`mkdir -p ${secretsPath}`;
+
     for (const role of project.role) {
-      const { exitCode } = spawnSync({
+      await $`touch ${secretsPath}/${role}_secrets.yaml`;
+      const { exitCode, stderr } = spawnSync({
         cmd: [
           "docker",
           "run",
@@ -74,15 +77,11 @@ export default async () => {
       });
       if (exitCode !== 0) {
         cancel("Generating secrets failed");
-        process.exit(0);
+        throw new Error(String(stderr));
       }
     }
   };
 
-  await mkdir(secretsPath, {
-    recursive: true,
-    mode: 0o774,
-  });
   await generateSecrets();
   await generateCompose(project.role, absPath);
 
