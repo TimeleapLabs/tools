@@ -1,6 +1,7 @@
 import yaml from "js-yaml";
-import compose from "../assets/compose.yaml" with { type: "text" };
-import config from "../assets/default.yaml" with { type: "text" };
+import compose from "../assets/compose.yaml" with { type: "file" };
+import config from "../assets/default.yaml" with { type: "file" };
+import { file } from "bun";
 
 type Compose = {
   services: Record<string, any>;
@@ -10,7 +11,8 @@ type Compose = {
 };
 
 export const generateCompose = async (roles: string[], project: string) => {
-  const doc = yaml.load(compose) as Compose;
+  const file = Bun.file(compose);
+  const doc = yaml.load(await file.text()) as Compose;
 
   const selectedServices = Object.entries(doc.services || {})
     .filter(([name]) => roles.includes(name))
@@ -63,7 +65,8 @@ export const generateConfig = async (
   path: string,
   broker?: { uri: string; key: string },
 ) => {
-  const doc = yaml.load(config);
+  const file = Bun.file(config);
+  const doc = yaml.load(await file.text());
 
   if (broker) {
     doc.network.broker.publicKey = broker.key;
