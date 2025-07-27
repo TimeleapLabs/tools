@@ -12,6 +12,7 @@ import {
 } from "@clack/prompts";
 import { generateCompose, generateConfig } from "./parser";
 import colors from "picocolors";
+import { mkdir } from "node:fs/promises";
 
 export default async () => {
   intro(colors.bgCyan(colors.black(" Timeleap Wizard ")));
@@ -78,7 +79,10 @@ export default async () => {
     }
   };
 
-  await $`mkdir -p ${secretsPath}`;
+  await mkdir(secretsPath, {
+    recursive: true,
+    mode: 604,
+  });
   await generateSecrets();
   await generateCompose(project.role, absPath);
 
