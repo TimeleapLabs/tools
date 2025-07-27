@@ -81,7 +81,7 @@ export default async () => {
 
   await mkdir(secretsPath, {
     recursive: true,
-    mode: 704,
+    mode: 0o774,
   });
   await generateSecrets();
   await generateCompose(project.role, absPath);
