@@ -53,9 +53,6 @@ export default async () => {
     const uid = isLinux
       ? process.env.UID || (await $`id -u`.text()).trim()
       : "";
-    const gid = isLinux
-      ? process.env.GID || (await $`id -g`.text()).trim()
-      : "";
 
     await $`mkdir -p ${secretsPath}`;
 
@@ -68,7 +65,7 @@ export default async () => {
           "-v",
           `${secretsPath}:/secrets`,
           "--rm",
-          ...(isLinux ? ["--user", `${uid}:${gid}`] : []),
+          ...(isLinux ? ["--user", `${uid}:${uid}`] : []),
           "ghcr.io/timeleaplabs/timeleap",
           "generate-secrets",
           "-s",
