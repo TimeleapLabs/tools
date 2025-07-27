@@ -22,6 +22,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@timeleap/admin": "^1.0.4",
     "picocolors": "^1.1.1"
   }
 }
