@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
-    "@timeleap/admin": "^1.0.5",
+    "@timeleap/admin": "1.0.5",
     "picocolors": "^1.1.1"
   }
 }
