@@ -1,17 +1,14 @@
 {
   "name": "tlp",
   "module": "src/index.ts",
-  "main": "dist/tlp",
-  "version": "0.0.1",
+  "main": "src/index.ts",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "bun run lint --fix",
+    "build": "bun build --compile --outfile dist/tlp src/index.ts",
     "build:all": "bun run scripts/build.ts"
-  },
-  "exports": {
-    ".": "./dist/tlp",
-    "./wizard": "./src/libs/init-wizard.ts"
   },
   "bin": {
     "tlp": "./dist/tlp"
