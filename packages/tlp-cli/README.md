@@ -1,7 +1,6 @@
 # Timeleap CLI (`tlp`)
 
-The Timeleap CLI is your single entrypoint to the distributed compute network powered by Timeleap.
-It installs, configures, runs, and manages everything from brokers to workers — including plugins, secrets, and workloads.
+The Timeleap CLI is your single entrypoint to the distributed compute network powered by Timeleap. It installs, configures, runs, and manages brokers, workers, plugins, secrets, and workloads.
 
 ---
 
