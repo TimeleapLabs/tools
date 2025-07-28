@@ -1,5 +1,5 @@
 {
-  "name": "tlp",
+  "name": "@timeleap/tlp",
   "module": "src/index.ts",
   "main": "src/index.ts",
   "version": "1.0.0",
