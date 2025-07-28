@@ -3,6 +3,7 @@ import { spawn } from 'bun'
 import path from 'path'
 import process from 'process'
 import { adminCommand } from '@timeleap/admin/cmd'
+import { version } from '../package.json'
 
 const program = new Command()
 
@@ -34,7 +35,7 @@ const run = async (args: string[]) => {
   }
 }
 
-program.name('tlp').description('Timeleap CLI wrapper').version('0.1.0')
+program.name('tlp').description('Timeleap CLI wrapper').version(version)
 
 program
   .command('init')
