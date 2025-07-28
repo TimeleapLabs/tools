@@ -78,7 +78,7 @@ install_tlp() {
   echo "➔ Installing Timeleap CLI..."
 
   mkdir -p "$TLP_HOME"
-  GITHUB_REPO="https://github.com/TimeleapLabs/tools/cli"
+  GITHUB_REPO="https://github.com/TimeleapLabs/tools"
   OS="$PLATFORM"
   ARCH_ID="$ARCH"
 
