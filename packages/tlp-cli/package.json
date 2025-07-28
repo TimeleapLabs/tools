@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "bun run lint --fix",
-    "build": "bun build --target=bun-linux-x64-baseline --compile --outfile ./dist/tlp src/index.ts src/assets/**"
+    "build:all": "bun run build.ts"
   },
   "exports": {
     ".": "./dist/tlp",
