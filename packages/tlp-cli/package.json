@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "bun run lint --fix",
-    "build:all": "bun run build.ts"
+    "build:all": "bun run scripts/build.ts"
   },
   "exports": {
     ".": "./dist/tlp",
